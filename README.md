@@ -80,8 +80,7 @@ days and ProtonDB data after 7, so re-syncing is quick.
 
 ## Architecture
 
-Layered like [steam-shuffle](https://github.com/algorithminflux/steam-shuffle); the
-dependency rule flows one way, outer to inner.
+The dependency rule flows one way, outer to inner.
 
 - `SteamProtonChecker.CoreModels`: domain models (`CheckedGame`, `ProtonTier`,
   `AppSettings`) and the `IGameRepository` abstraction. No dependencies.
