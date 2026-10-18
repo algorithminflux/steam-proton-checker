@@ -30,6 +30,12 @@ On first launch the Settings window opens:
 Your Steam profile's **Game details** must be Public (family members' profiles too, if
 you list them). Then click **Sync**.
 
+## Screenshots
+
+![Main window](docs/2026-10-18_main-content.jpg)
+![Settings](docs/2026-10-18_settings.jpg)
+![CSV export opened in a spreadsheet](docs/2026-10-18_csv-export.jpg)
+
 ## Using it
 
 - Click any column header to sort; Shift-click to add a second sort key.

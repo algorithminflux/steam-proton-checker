@@ -1,4 +1,4 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
@@ -14,6 +14,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamProtonChecker.Services", "SteamProtonChecker.Services\SteamProtonChecker.Services.csproj", "{A1000000-0000-4000-8000-000000000005}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamProtonChecker.Tests", "SteamProtonChecker.Tests\SteamProtonChecker.Tests.csproj", "{A1000000-0000-4000-8000-000000000006}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{8486045E-D838-4C13-A622-1E55E02DC82C}"
+	ProjectSection(SolutionItems) = preProject
+		docs\2026-10-18_csv-export.jpg = docs\2026-10-18_csv-export.jpg
+		docs\2026-10-18_main-content.jpg = docs\2026-10-18_main-content.jpg
+		docs\2026-10-18_settings.jpg = docs\2026-10-18_settings.jpg
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
