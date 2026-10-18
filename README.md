@@ -36,6 +36,7 @@ you list them). Then click **Sync**.
 - Filter by source (Library / Family / Wishlist), by tier group
   ("Likely trouble: Borked + Bronze", "Unknown", ...), or by name.
 - Double-click a game to open its ProtonDB page and read the actual reports.
+- **Export CSV** saves the games currently shown (after filters, in the current sort order).
 - **Native Linux** means the store lists a Linux build. A game with a native build and
   no ProtonDB verdict is shown as *Native* rather than *Unrated*.
 - *Pending* means ProtonDB has some reports but not enough for a tier. *Unrated* means

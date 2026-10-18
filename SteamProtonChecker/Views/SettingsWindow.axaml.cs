@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using SteamProtonChecker.CoreModels;
@@ -57,6 +58,24 @@ public partial class SettingsWindow : Window
         _settings.SteamWebToken = TokenBox.Text?.Trim() ?? string.Empty;
 
         Close(true);
+    }
+
+    private void Link_Click(object? sender, RoutedEventArgs e)
+    {
+        // Only ever open the https URLs hard-coded in the XAML Tag.
+        if (sender is not Button { Tag: string { Length: > 0 } url } || !url.StartsWith("https://", StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        try
+        {
+            Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+        }
+        catch (Exception)
+        {
+            ShowError($"Couldn't open the browser. Open this address yourself: {url}");
+        }
     }
 
     private void Cancel_Click(object? sender, RoutedEventArgs e) => Close(false);

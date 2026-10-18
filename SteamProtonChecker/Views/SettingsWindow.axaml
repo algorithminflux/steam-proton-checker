@@ -8,14 +8,40 @@
         Width="580" SizeToContent="Height" CanResize="False"
         WindowStartupLocation="CenterOwner">
 
+  <Window.Styles>
+    <!-- Link-looking buttons; Tag holds the URL, Link_Click opens it in the default browser. -->
+    <Style Selector="Button.link">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="FontSize" Value="12" />
+      <Setter Property="Foreground" Value="#4C9AFF" />
+      <Setter Property="Cursor" Value="Hand" />
+      <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
+    <Style Selector="Button.link:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="TextBlock.Foreground" Value="#80B7FF" />
+    </Style>
+    <Style Selector="Button.link TextBlock">
+      <Setter Property="TextDecorations" Value="Underline" />
+    </Style>
+  </Window.Styles>
+
   <StackPanel Margin="16" Spacing="6">
 
     <TextBlock Text="Steam Web API key" FontWeight="SemiBold" />
-    <TextBlock Text="Free at steamcommunity.com/dev/apikey" FontSize="12" Opacity="0.7" />
+    <TextBlock Text="Free; sign in and register any domain name." FontSize="12" Opacity="0.7" />
+    <Button Classes="link" Tag="https://steamcommunity.com/dev/apikey" Click="Link_Click">
+      <TextBlock Text="steamcommunity.com/dev/apikey" />
+    </Button>
     <TextBox x:Name="ApiKeyBox" PasswordChar="•" />
 
     <TextBlock Text="Your SteamID64" FontWeight="SemiBold" Margin="0,8,0,0" />
     <TextBlock Text="17 digits. Paste your profile URL into steamid.io to find it. Game details must be Public." FontSize="12" Opacity="0.7" TextWrapping="Wrap" />
+    <Button Classes="link" Tag="https://steamid.io" Click="Link_Click">
+      <TextBlock Text="steamid.io" />
+    </Button>
     <TextBox x:Name="SteamIdBox" Watermark="76561198..." />
 
     <TextBlock Text="Store region" FontWeight="SemiBold" Margin="0,8,0,0" />
@@ -27,7 +53,10 @@
 
     <TextBlock Text="Steam web token (optional, this session only)" FontWeight="SemiBold" Margin="0,8,0,0" />
     <TextBlock FontSize="12" Opacity="0.7" TextWrapping="Wrap"
-               Text="Reads your real Steam Family shared library and, if Steam provides it, the date each game was added. Sign in at store.steampowered.com, open store.steampowered.com/pointssummary/ajaxgetasyncconfig, and paste the whole page text or just the webapi_token value. It expires after about a day and is never saved to disk." />
+               Text="Reads your real Steam Family shared library and, if Steam provides it, the date each game was added. Sign in at store.steampowered.com, open the page below, and paste the whole page text or just the webapi_token value. It expires after about a day and is never saved to disk." />
+    <Button Classes="link" Tag="https://store.steampowered.com/pointssummary/ajaxgetasyncconfig" Click="Link_Click">
+      <TextBlock Text="store.steampowered.com/pointssummary/ajaxgetasyncconfig" />
+    </Button>
     <TextBox x:Name="TokenBox" PasswordChar="•" />
 
     <TextBlock x:Name="ErrorText" Foreground="#E5484D" TextWrapping="Wrap" IsVisible="False" Margin="0,8,0,0" />
