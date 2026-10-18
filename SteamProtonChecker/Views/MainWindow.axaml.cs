@@ -1,9 +1,11 @@
 using System.Diagnostics;
 using System.Net.Http;
+using System.Text;
 using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
+using Avalonia.Platform.Storage;
 using SteamProtonChecker.CoreModels;
 using SteamProtonChecker.Infrastructure;
 using SteamProtonChecker.Services;
@@ -139,6 +141,44 @@ public partial class MainWindow : Window
         {
             AppSettingsStore.Save(_settings);
             StatusText.Text = "Settings saved. Click Sync to refresh.";
+        }
+    }
+
+    // ---------- Export ----------
+
+    private async void ExportButton_Click(object? sender, RoutedEventArgs e)
+    {
+        // The view enumerates only the rows that pass the filter, in the grid's current sort order.
+        var games = _view?.Cast<GameRow>().Select(r => r.Game).ToList() ?? new List<CheckedGame>();
+        if (games.Count == 0)
+        {
+            StatusText.Text = "Nothing to export. Sync first, or loosen the filters.";
+            return;
+        }
+
+        var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+        {
+            Title = "Export games to CSV",
+            SuggestedFileName = $"steam-proton-{DateTime.Now:yyyy-MM-dd}.csv",
+            DefaultExtension = "csv",
+            FileTypeChoices = new[] { new FilePickerFileType("CSV") { Patterns = new[] { "*.csv" } } },
+        });
+        if (file is null)
+        {
+            return;
+        }
+
+        try
+        {
+            // UTF-8 with BOM so Excel reads non-ASCII game names correctly.
+            await using var stream = await file.OpenWriteAsync();
+            await using var writer = new StreamWriter(stream, new UTF8Encoding(true));
+            await writer.WriteAsync(CsvExporter.Export(games));
+            StatusText.Text = $"Exported {games.Count} games to {file.Name}.";
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            StatusText.Text = $"Export failed: {ex.Message}";
         }
     }
 

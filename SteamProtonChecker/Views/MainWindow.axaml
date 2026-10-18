@@ -13,7 +13,9 @@
     <WrapPanel Grid.Row="0">
       <Button x:Name="SyncButton" Content="Sync" Margin="0,0,8,8" Click="SyncButton_Click" />
       <Button x:Name="CancelButton" Content="Cancel" IsVisible="False" Margin="0,0,8,8" Click="CancelButton_Click" />
-      <Button Content="Settings" Margin="0,0,16,8" Click="SettingsButton_Click" />
+      <Button Content="Settings" Margin="0,0,8,8" Click="SettingsButton_Click" />
+      <Button x:Name="ExportButton" Content="Export CSV" Margin="0,0,16,8" Click="ExportButton_Click"
+              ToolTip.Tip="Save the games currently shown, in the current sort order" />
       <TextBox x:Name="SearchBox" Width="220" Watermark="Search games..." Margin="0,0,16,8" />
       <CheckBox x:Name="LibraryCheck" Content="Library" IsChecked="True" Margin="0,0,4,8" Click="Filter_Changed" />
       <CheckBox x:Name="FamilyCheck" Content="Family" IsChecked="True" Margin="0,0,4,8" Click="Filter_Changed" />

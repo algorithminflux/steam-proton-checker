@@ -1,11 +1,11 @@
 # Steam Proton Checker
 
 A cross-platform desktop app (Avalonia, .NET 8) that checks every game in your
-Steam library, your family's libraries and your wishlist against
-[ProtonDB](https://www.protondb.com), so you can see which games are likely to give
-you trouble **before** you move from Windows to Linux.
+Steam library, your Family Library and your wishlist against
+[ProtonDB](https://www.protondb.com). The original goal was to give insight into which games would be likely 
+to give you trouble before a migration from Windows to Linux.
 
-Games are listed worst-first (Borked, Bronze, Silver, Gold, Platinum, Native, then
+Games are listed worst to first (Borked, Bronze, Silver, Gold, Platinum, Native, then
 Pending/Unrated) and every column is sortable: compatibility, hours played, last
 played, release date and date added.
 
