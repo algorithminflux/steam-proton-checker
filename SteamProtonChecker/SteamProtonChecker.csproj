@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>SteamProtonChecker</AssemblyName>
+    <RootNamespace>SteamProtonChecker</RootNamespace>
+
+    <!-- Reflection bindings (the Avalonia default) keep the DataGrid column bindings simple. -->
+    <AvaloniaUseCompiledBindingsByDefault>false</AvaloniaUseCompiledBindingsByDefault>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.1.3" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.1.3" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.3" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.3" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.1.3" />
+    <PackageReference Include="Avalonia.Diagnostics" Version="11.1.3" Condition="'$(Configuration)' == 'Debug'" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SteamProtonChecker.ApiClients\SteamProtonChecker.ApiClients.csproj" />
+    <ProjectReference Include="..\SteamProtonChecker.CoreModels\SteamProtonChecker.CoreModels.csproj" />
+    <ProjectReference Include="..\SteamProtonChecker.Infrastructure\SteamProtonChecker.Infrastructure.csproj" />
+    <ProjectReference Include="..\SteamProtonChecker.Services\SteamProtonChecker.Services.csproj" />
+  </ItemGroup>
+
+</Project>

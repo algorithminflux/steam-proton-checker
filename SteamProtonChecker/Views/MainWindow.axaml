@@ -1,0 +1,74 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        x:Class="SteamProtonChecker.Views.MainWindow"
+        Title="Steam Proton Checker"
+        Width="1280" Height="780" MinWidth="900" MinHeight="500">
+
+  <Grid RowDefinitions="Auto,Auto,Auto,*,Auto" Margin="12">
+
+    <!-- Toolbar: sync, settings, search, source filter, tier filter -->
+    <WrapPanel Grid.Row="0">
+      <Button x:Name="SyncButton" Content="Sync" Margin="0,0,8,8" Click="SyncButton_Click" />
+      <Button x:Name="CancelButton" Content="Cancel" IsVisible="False" Margin="0,0,8,8" Click="CancelButton_Click" />
+      <Button Content="Settings" Margin="0,0,16,8" Click="SettingsButton_Click" />
+      <TextBox x:Name="SearchBox" Width="220" Watermark="Search games..." Margin="0,0,16,8" />
+      <CheckBox x:Name="LibraryCheck" Content="Library" IsChecked="True" Margin="0,0,4,8" Click="Filter_Changed" />
+      <CheckBox x:Name="FamilyCheck" Content="Family" IsChecked="True" Margin="0,0,4,8" Click="Filter_Changed" />
+      <CheckBox x:Name="WishlistCheck" Content="Wishlist" IsChecked="True" Margin="0,0,16,8" Click="Filter_Changed" />
+      <ComboBox x:Name="TierFilter" SelectedIndex="0" Width="330" Margin="0,0,0,8" SelectionChanged="TierFilter_Changed">
+        <ComboBoxItem>All tiers</ComboBoxItem>
+        <ComboBoxItem>Likely trouble: Borked + Bronze</ComboBoxItem>
+        <ComboBoxItem>Possible trouble: Borked + Bronze + Silver</ComboBoxItem>
+        <ComboBoxItem>Unknown: Pending + Unrated</ComboBoxItem>
+        <ComboBoxItem>Should work: Gold + Platinum + Native</ComboBoxItem>
+      </ComboBox>
+    </WrapPanel>
+
+    <!-- Counts per tier for the current filter -->
+    <TextBlock x:Name="SummaryText" Grid.Row="1" Margin="0,0,0,8" Opacity="0.85" />
+
+    <!-- Non-fatal sync problems -->
+    <Border x:Name="WarningBorder" Grid.Row="2" IsVisible="False" Padding="10,8" Margin="0,0,0,8"
+            CornerRadius="4" Background="#3B2A12">
+      <TextBlock x:Name="WarningText" TextWrapping="Wrap" Foreground="#F5C27A" />
+    </Border>
+
+    <!-- Click a header to sort; shift-click to add a second sort. Double-click a row to open its ProtonDB page. -->
+    <DataGrid x:Name="GamesGrid" Grid.Row="3"
+              AutoGenerateColumns="False" IsReadOnly="True"
+              CanUserSortColumns="True" CanUserResizeColumns="True"
+              GridLinesVisibility="Horizontal" SelectionMode="Single"
+              DoubleTapped="GamesGrid_DoubleTapped">
+      <DataGrid.Columns>
+        <DataGridTemplateColumn Header="Proton" SortMemberPath="TierRank" Width="110">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <Border Background="{Binding TierBrush}" CornerRadius="4" Margin="4,3" Padding="8,2"
+                      HorizontalAlignment="Left">
+                <TextBlock Text="{Binding TierLabel}" Foreground="{Binding TierForeground}" FontWeight="SemiBold" />
+              </Border>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+        <DataGridTextColumn Header="Game" Binding="{Binding Name}" SortMemberPath="Name" Width="*" MinWidth="200" />
+        <DataGridTextColumn Header="Reports" Binding="{Binding ReportsText}" SortMemberPath="ReportsSort" Width="90" />
+        <DataGridTextColumn Header="Native Linux" Binding="{Binding NativeText}" SortMemberPath="NativeSort" Width="110" />
+        <DataGridTextColumn Header="Source" Binding="{Binding SourceText}" SortMemberPath="SourceText" Width="200" />
+        <DataGridTextColumn Header="Hours" Binding="{Binding HoursText}" SortMemberPath="HoursPlayed" Width="80" />
+        <DataGridTextColumn Header="Last played" Binding="{Binding LastPlayedText}" SortMemberPath="LastPlayedSort" Width="115" />
+        <DataGridTextColumn Header="Released" Binding="{Binding ReleaseText}" SortMemberPath="ReleaseSort" Width="110" />
+        <DataGridTextColumn Header="Date added" Binding="{Binding AddedText}" SortMemberPath="AddedSort" Width="110" />
+      </DataGrid.Columns>
+    </DataGrid>
+
+    <!-- Status and progress -->
+    <Grid Grid.Row="4" ColumnDefinitions="*,260" Margin="0,8,0,0">
+      <TextBlock x:Name="StatusText" Grid.Column="0" VerticalAlignment="Center" Opacity="0.85" />
+      <ProgressBar x:Name="SyncProgressBar" Grid.Column="1" IsVisible="False" Height="8" />
+    </Grid>
+
+  </Grid>
+</Window>

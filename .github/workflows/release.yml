@@ -1,0 +1,73 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: "8.0.x"
+      - name: Restore
+        run: dotnet restore SteamProtonChecker.sln
+      - name: Test
+        run: dotnet test SteamProtonChecker.sln --configuration Release
+
+  # Cross-publishes the Avalonia app for each platform from one Linux runner.
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - rid: win-x64
+          - rid: linux-x64
+          - rid: osx-arm64
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Publish (${{ matrix.rid }})
+        run: >
+          dotnet publish SteamProtonChecker/SteamProtonChecker.csproj
+          -c Release
+          -r ${{ matrix.rid }}
+          --self-contained true
+          -p:PublishSingleFile=true
+          -o publish/${{ matrix.rid }}
+
+      # zip preserves the Unix executable bit for the linux/macOS binaries.
+      - name: Zip
+        run: |
+          cd publish/${{ matrix.rid }}
+          zip -r ../../SteamProtonChecker-${{ github.ref_name }}-${{ matrix.rid }}.zip .
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: build-${{ matrix.rid }}
+          path: SteamProtonChecker-${{ github.ref_name }}-${{ matrix.rid }}.zip
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v7
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v3
+        with:
+          files: artifacts/*.zip
+          generate_release_notes: true

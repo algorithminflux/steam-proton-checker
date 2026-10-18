@@ -1,0 +1,41 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        x:Class="SteamProtonChecker.Views.SettingsWindow"
+        Title="Settings"
+        Width="580" SizeToContent="Height" CanResize="False"
+        WindowStartupLocation="CenterOwner">
+
+  <StackPanel Margin="16" Spacing="6">
+
+    <TextBlock Text="Steam Web API key" FontWeight="SemiBold" />
+    <TextBlock Text="Free at steamcommunity.com/dev/apikey" FontSize="12" Opacity="0.7" />
+    <TextBox x:Name="ApiKeyBox" PasswordChar="•" />
+
+    <TextBlock Text="Your SteamID64" FontWeight="SemiBold" Margin="0,8,0,0" />
+    <TextBlock Text="17 digits. Paste your profile URL into steamid.io to find it. Game details must be Public." FontSize="12" Opacity="0.7" TextWrapping="Wrap" />
+    <TextBox x:Name="SteamIdBox" Watermark="76561198..." />
+
+    <TextBlock Text="Store region" FontWeight="SemiBold" Margin="0,8,0,0" />
+    <TextBox x:Name="CountryBox" Width="80" HorizontalAlignment="Left" Watermark="ca" />
+
+    <TextBlock Text="Family members" FontWeight="SemiBold" Margin="0,8,0,0" />
+    <TextBlock Text="One per line: Name, SteamID64. Their libraries are read from their public profiles. Not needed if you use a web token below." FontSize="12" Opacity="0.7" TextWrapping="Wrap" />
+    <TextBox x:Name="FamilyBox" AcceptsReturn="True" Height="80" />
+
+    <TextBlock Text="Steam web token (optional, this session only)" FontWeight="SemiBold" Margin="0,8,0,0" />
+    <TextBlock FontSize="12" Opacity="0.7" TextWrapping="Wrap"
+               Text="Reads your real Steam Family shared library and, if Steam provides it, the date each game was added. Sign in at store.steampowered.com, open store.steampowered.com/pointssummary/ajaxgetasyncconfig, and paste the whole page text or just the webapi_token value. It expires after about a day and is never saved to disk." />
+    <TextBox x:Name="TokenBox" PasswordChar="•" />
+
+    <TextBlock x:Name="ErrorText" Foreground="#E5484D" TextWrapping="Wrap" IsVisible="False" Margin="0,8,0,0" />
+
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8" Margin="0,12,0,0">
+      <Button Content="Cancel" Click="Cancel_Click" />
+      <Button Content="Save" Click="Save_Click" />
+    </StackPanel>
+
+  </StackPanel>
+</Window>

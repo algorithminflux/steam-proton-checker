@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SteamProtonChecker.ApiClients\SteamProtonChecker.ApiClients.csproj" />
+    <ProjectReference Include="..\SteamProtonChecker.CoreModels\SteamProtonChecker.CoreModels.csproj" />
+  </ItemGroup>
+
+</Project>
